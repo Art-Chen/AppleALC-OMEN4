@@ -15,7 +15,7 @@
 
 class AlcEnabler {
 public:
-	bool init();
+	void init();
 	void deinit();
 
 private:
@@ -84,14 +84,13 @@ private:
 	};
 
 	/**
-	 *  Checks whether this driver is attached to HDEF
+	 *  Obtain HDEF and HDAU layout-id
 	 *
 	 *  @param hdaDriver  ioreg driver instance
-	 *  @param layout     layout-id value in HDEF parent
 	 *
-	 *  @return true on successful find
+	 *  @return layout-id on successful find or 0
 	 */
-	static bool isAnalogAudio(IOService *hdaDriver, uint32_t *layout=nullptr);
+	static uint32_t getAudioLayout(IOService *hdaDriver);
 
 	/**
 	 *  Hooked performPowerChange method triggering a verb sequence on wake
@@ -202,12 +201,29 @@ private:
 		uint32_t const layout;
 		bool const detect;
 	};
-	
+
 	/**
 	 *  Detected controllers
 	 */
 	evector<ControllerInfo *, ControllerInfo::deleter> controllers;
 	size_t currentController {0};
+
+	/**
+	 *  Insert a controller with given parameters
+	 */
+	void insertController(uint32_t ven, uint32_t dev, uint32_t rev, uint32_t p=ControllerModInfo::PlatformAny, uint32_t lid=0, bool d=false, const CodecLookupInfo *lookup = nullptr) {
+		auto controller = ControllerInfo::create(ven, dev, rev, p, lid, d);
+		if (controller) {
+			if (controllers.push_back(controller)) {
+				controller->lookup = lookup;
+			} else {
+				SYSLOG("alc", "failed to store controller info for %X:%X:%X", ven, dev, rev);
+				ControllerInfo::deleter(controller);
+			}
+		} else {
+			SYSLOG("alc", "failed to create controller info for %X:%X:%X", ven, dev, rev);
+		}
+	}
 
 	/**
 	 *  Codec identification and modification info
@@ -254,11 +270,6 @@ private:
 	int computerModel {WIOKit::ComputerModel::ComputerInvalid};
 
 	/**
-	 *  Set when we do not want to perform verb reinitialisation
-	 */
-	bool receivedSleepEvent {false};
-
-	/**
 	 *  HDAConfigDefault availability in AppleALC
 	 */
 	enum class WakeVerbMode {
@@ -268,9 +279,46 @@ private:
 	};
 
 	/**
-	 *  Marks HDAConfigDefault availability in AppleALC
+	 *  Total available NVIDIA HDAU device-ids in 10.13 and newer
 	 */
-	WakeVerbMode hasHDAConfigDefault {WakeVerbMode::Detect};
+	static constexpr size_t MaxNvidiaDeviceIds = 16;
+
+	/**
+	 *  Magic NVIDIA HDAU id find to update the one from the list below
+	 */
+	static constexpr uint32_t NvidiaSpecialFind = 0x4144564E; // NVDA
+
+	/**
+	 *  NVIDIA HDAU device-ids available for replacement
+	 */
+	uint32_t nvidiaDeviceIdList[MaxNvidiaDeviceIds] {
+		0x0E0A10DE, // GK104
+		0x0E0B10DE, // GK106
+		0x0E1B10DE, // GK107
+		0x0E1A10DE, // GK110
+		0x0BE510DE, // GF100
+		0x0BEB10DE, // GF104
+		0x0BE910DE, // GF106
+		0x0BEA10DE, // GF108
+		0x0E0910DE, // GF110
+		0x0BEE10DE, // GF116
+		0x0E0810DE, // GF119
+		0x0BE310DE, // GF210
+		0x0AC010DE, // MCP79
+		0x0D9410DE, // MCP89
+		0x0BE210DE, // GT216
+		0x0BE410DE, // GTS 250M
+	};
+
+	/**
+	 *  NVIDIA HDAU device-ids usage status
+	 */
+	bool nvidiaDeviceIdUsage[MaxNvidiaDeviceIds] = {};
+
+	/**
+	 *  Current NVIDIA device-id patch to use
+	 */
+	size_t currentFreeNvidiaDeviceId = 0;
 };
 
 #endif /* kern_alc_hpp */

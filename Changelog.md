@@ -1,8 +1,26 @@
 AppleALC Changelog
 ==================
+#### v1.3.2
+- Added ALC269 layout-id 45 for Asus A45A and K45 by maiconjs (Wolfield)
+- Added WakeConfigData for ALC892 layout-id 1 by FredWst
+- Added ALC295 layout-id 14 for Asus UX430UA by InsanelyDeepak
+- Added ALC295 layout-id 15 for ALC295/ALC3254 by InsanelyDeepak
+- Remove duplicate resources for ALC295 layout-id 12 on Asus UX430
+- Added ALC230 layout-id 13 for Lenovo 310-14ISK by Andres
+
+#### v1.3.1
+- Fixed incorrect unused HDAU termination
+- Fixed pinconfig refresh causing random init failures
+- Added ALC225/ALC3253 layout-id 30 for Dell Inspiron 17-7779 by Constanta
+- Added ALC295 layout-id 12 for Asus UX430 by hieplpvip
+- Added Realtek ALC256 (3246) layout-id 11 for dell 7559 by Rockjesus
+- Added ALC887 layout-id 50 for Asus PRIME B250-PLUS by 0th3r
+- Added ALC295 layout-id 1 for HP Envy x360 15-bp107tx by Damon
+
 #### v1.3.0
 - Requires Lilu 1.2.5 and higher and enabled on 10.14 by default
 - Added digital audio property injection for AMD, Intel, NVIDIA
+- Added NVIDIA multi-gpu NVIDIA HDAU patch support
 - Added ALC269VC layout-id 30 for Hasee Z6SL7R3 by HF
 
 #### v1.2.8

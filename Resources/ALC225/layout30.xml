@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>LayoutID</key>
-	<integer>13</integer>
+	<integer>30</integer>
 	<key>PathMapRef</key>
 	<array>
 		<dict>
 			<key>CodecID</key>
 			<array>
-				<integer>283902613</integer>
+				<integer>283902501</integer>
 			</array>
 			<key>Headphone</key>
 			<dict>
@@ -1454,7 +1454,7 @@
 				<string>IntSpeaker</string>
 			</array>
 			<key>PathMapID</key>
-			<integer>1</integer>
+			<integer>225</integer>
 		</dict>
 	</array>
 </dict>

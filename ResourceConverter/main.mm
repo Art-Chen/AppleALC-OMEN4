@@ -227,7 +227,7 @@ static NSString *generatePatches(NSString *file, NSArray *patches, NSDictionary 
 
 	if (patches) {
 		auto pStr = [NSMutableString alloc];
-		pStr = header ? [[pStr initWithString:header] autorelease] : [[pStr initWithFormat:@"static const KextPatch patches%zu[] {\n", patchIndex] autorelease];
+		pStr = header ? [[pStr initWithString:header] autorelease] : [[pStr initWithFormat:@"static KextPatch patches%zu[] {\n", patchIndex] autorelease];
 		auto pbStr = [[[NSMutableString alloc] init] autorelease];
 		for (NSDictionary *p in patches) {
 			const size_t PatchNum = 2;
