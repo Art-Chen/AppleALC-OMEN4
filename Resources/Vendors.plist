@@ -4,6 +4,8 @@
 <dict>
 	<key>AMD</key>
 	<integer>4098</integer>
+	<key>AMDZEN</key>
+	<integer>4130</integer>
 	<key>AnalogDevices</key>
 	<integer>4564</integer>
 	<key>CirrusLogic</key>
@@ -20,6 +22,8 @@
 	<integer>4318</integer>
 	<key>Realtek</key>
 	<integer>4332</integer>
+	<key>SigmaTel</key>
+	<integer>33668</integer>
 	<key>VIA</key>
 	<integer>4358</integer>
 </dict>

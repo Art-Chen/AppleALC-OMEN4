@@ -39,6 +39,18 @@
 			<key>Count</key>
 			<integer>1</integer>
 			<key>Find</key>
+			<data>xgYASIu/aAE=</data>
+			<key>MinKernel</key>
+			<integer>18</integer>
+			<key>Name</key>
+			<string>AppleHDA</string>
+			<key>Replace</key>
+			<data>xgYBSIu/aAE=</data>
+		</dict>
+		<dict>
+			<key>Count</key>
+			<integer>1</integer>
+			<key>Find</key>
 			<data>QcYGAEmLvCQ=</data>
 			<key>MaxKernel</key>
 			<integer>13</integer>
@@ -96,6 +108,20 @@
 			<string>AppleHDA</string>
 			<key>Replace</key>
 			<data>AAAAAA==</data>
+		</dict>
+		<dict>
+			<key>Count</key>
+			<integer>1</integer>
+			<key>Find</key>
+			<data>a3Bzaes=</data>
+			<key>MinKernel</key>
+			<string>14</string>
+			<key>Name</key>
+			<string>AppleHDA</string>
+			<key>Provider</key>
+			<string>Wern Apfel</string>
+			<key>Replace</key>
+			<data>Y2ltaes=</data>
 		</dict>
 	</array>
 	<key>Vendor</key>
